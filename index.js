@@ -2,24 +2,21 @@
 
 const _ = require('lodash');
 const Joi = require('joi');
+const Boom = require('boom');
 
-const contextRegex = /(?<=\/).+?(?=\/|$)/;
 
 const strategies = {
     subdomain: req => {
         let [tenant] = req.info.hostname.split('.');
         return tenant;
     },
-    header: req => req.headers['x-inf-tenant'],
-    context: req => {
-        const contextResult = contextRegex.exec(req.url.path);
-        return contextResult ? contextResult[0] : null;
-    }
+    header: req => req.headers['x-inf-tenant']
 };
 
 const schema = {
     strategy: Joi.string().valid(Object.keys(strategies)),
-    tenantMap: Joi.object().optional()
+    tenantMap: Joi.object().optional(),
+    defaultsTo: Joi.string().optional()
 };
 
 exports.register = function(server, opts, next) {
@@ -32,7 +29,8 @@ exports.register = function(server, opts, next) {
         opts = valid;
     });
     server.defaultTenant(req => {
-        let tenant = strategies[opts.strategy](req);
+        let tenant = strategies[opts.strategy](req) || opts.defaultsTo;
+        if(!tenant) return Boom.unauthorized();
         if(_.get(opts,['tenantMap',tenant]))
             tenant = _.get(opts,['tenantMap',tenant]);
         return tenant;

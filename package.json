@@ -1,8 +1,8 @@
 {
-  "name": "tenant-selector",
-  "version": "1.0.0",
+  "name": "@entrinsik/informer-tenant-selector",
+  "version": "1.0.3",
   "description": "Used to select the tenant, based on a number of strategies",
-  "main": "test/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
