@@ -21,7 +21,7 @@
   "homepage": "https://github.com/entrinsik-org/tenant-selector#readme",
   "devDependencies": {
     "chai": "~3.5.0",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.19",
     "mocha": "~5.2.0"
   },
   "dependencies": {}
