@@ -1,6 +1,6 @@
 {
   "name": "@entrinsik/informer-tenant-selector",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Used to select the tenant, based on a number of strategies",
   "main": "index.js",
   "scripts": {
@@ -21,8 +21,11 @@
   "homepage": "https://github.com/entrinsik-org/tenant-selector#readme",
   "devDependencies": {
     "chai": "~3.5.0",
-    "lodash": "^3.10.1",
     "mocha": "~5.2.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "joi": "~9.2.0",
+    "boom": "4.2.0",
+    "lodash": "^3.10.1"
+  }
 }

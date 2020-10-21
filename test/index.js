@@ -27,9 +27,11 @@ describe('Tenant Selector', () => {
        server.df(req).should.equal('testing');
    });
     it('should validate header strategy', () => {
-        (() => register(server, { strategy: 'header' }, () => {})).should.not.throw();
+        (() => register(server, { strategy: 'header', defaultsTo:'foo' }, () => {})).should.not.throw();
         const req = _({}).set('headers', { 'x-inf-tenant': 'testing'}).value();
         server.df(req).should.equal('testing');
+        const defReq = _({}).set('headers', {}).value();
+        server.df(defReq).should.equal('foo');
     });
     it('should validate incorrect strategy', () => {
         (() => register(server, { strategy: 'foo'}, () => {})).should.throw('child "strategy" fails because ["strategy" must be one of [subdomain, header]]');
